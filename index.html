@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Junior Pet</title>
+  <meta name="description"
+    content="Compre produtos para pets com qualidade e promoções imperdíveis. Rações, acessórios, brinquedos e mais para cuidar do seu melhor amigo." />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fff;
+      padding-top: 110px;
+      /* espaço para header com logo + nav */
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to bottom, #FFD700, #000);
+      padding: 10px 20px;
+      box-sizing: border-box;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      height: 60px;
+      margin-bottom: 5px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    nav a {
+      color: #FFD700;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 215, 0, 0.3);
+    }
+    .delivery-selection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+.delivery-selection label {
+  color: #FFD700; /* dourado */
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.delivery-selection select {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#valor-entrega {
+  color: #FFD700; /* dourado */
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-left: 10px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+
+    /* Botão carrinho fixado no topo direito, alinhado com o logo */
+    .cart-button {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: #FFD700;
+      color: #000;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      height: 40px;
+      z-index: 10001;
+    }
+
+    .carousel {
+      position: relative;
+      width: 600px;
+      /* largura fixa menor */
+      height: 300px;
+      overflow: hidden;
+      margin: 0 auto;
+      /* centraliza horizontalmente */
+    }
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .carousel-track img {
+      width: 600px;
+      /* mesma largura do container */
+      height: 300px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Indicadores (bolinhas) */
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .carousel-indicators button {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .carousel-indicators button.active {
+      background-color: #FFD700;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      flex-wrap: wrap;
+      background: #f9f9f9;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .container {
+      padding: 30px 15px;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      padding: 10px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      max-height: 150px;
+      object-fit: contain;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .product button {
+      background: #FFD700;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .product-description {
+      font-size: 0.9rem;
+      color: #333;
+      margin-top: 8px;
+      text-align: left;
+    }
+
+    #cart-modal {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background: #fff;
+      border: 2px solid #FFD700;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      padding: 15px;
+    }
+#cart-modal {
+  z-index: 11000; /* maior que 10001 */
+}
+    .cart-item {
+      border-bottom: 1px solid #ccc;
+      padding: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #000;
+      color: #FFD700;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    #formulario-entrega button {
+      background-color: #FFD700;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #formulario-entrega {
+      display: none;
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 20px;
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      z-index: 10000;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #finalizar-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #cart-modal #finalizar-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    #cart-modal button.limpar-carrinho-btn {
+      background-color: #FFD700;
+      color: black;
+      border: none;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #cart-modal button.continuar-comprando-btn {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #formulario-entrega input,
+    #formulario-entrega select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #formulario-entrega .fechar-formulario {
+      background: #ccc;
+      color: #000;
+    }
+
+    /* Modal produto */
+    #produto-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      z-index: 11000;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+    }
+
+    #produto-modal img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+
+    #produto-modal h2 {
+      margin: 15px 0 10px;
+    }
+
+    #produto-modal p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    #produto-modal button.fechar-modal {
+      margin-top: 15px;
+      background: #ff4d4d;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 8px 10px;
+      }
+
+      .logo {
+        height: 40px;
+        margin-bottom: 3px;
+      }
+
+      nav {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+      }
+
+      .cart-button {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        height: 35px;
+      }
+
+      body {
+        padding-top: 90px;
+      }
+
+      .container {
+        padding: 20px 10px;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+      }
+
+      .product img {
+        max-height: 120px;
+      }
+
+      #produto-modal {
+        max-width: 90%;
+        width: 100%;
+        max-height: 85vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+  <img src="img/jr_logo.png" alt="Logo Junior Pet" class="logo" />
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="index.html">Produtos</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+<!-- Botão do carrinho -->
+<button class="cart-button" onclick="abrirCarrinho()">🛒 R$ <span id="cart-total">0.00</span></button>
+
+<!-- Seletor de bairros -->
+<div class="delivery-selection">
+  <label for="bairro">Bairro para entrega:</label>
+  <select id="bairro">
+    <option value="">Selecione</option>
+    <!-- opções serão carregadas do bairros.json -->
+  </select>
+  <span id="valor-entrega">Valor entrega: -</span>
+</div>
+
+</header>
+
+
+
+
+
+
+
+  <div class="carousel">
+    <div class="carousel-track" id="carousel-track">
+      <img src="/img/promo1.png" alt="Promoção 1" />
+      <img src="/img/promo2.png" alt="Promoção 2" />
+      <img src="/img/promo1.png" alt="Promoção 3" />
+      <img src="/img/promo2.png" alt="Promoção 4" />
+      <img src="/img/promo1.png" alt="Promoção 5" />
+    </div>
+    <div class="carousel-indicators" id="carousel-indicators"></div>
+  </div>
+
+  <div class="filters">
+    <select id="categoriaSelect" onchange="filtrarProdutos()">
+      <option value="">Todas as categorias</option>
+      <option value="Ração">Ração</option>
+      <option value="Saúde">Saúde</option>
+      <option value="Acessórios">Acessórios</option>
+      <option value="Brinquedos">Brinquedos</option>
+    </select>
+    <input type="text" id="buscaInput" placeholder="Buscar produto..." oninput="filtrarProdutos()" />
+    <select id="ordenacaoSelect" onchange="filtrarProdutos()">
+      <option value="">Ordenar por</option>
+      <option value="nome-asc">Nome (A-Z)</option>
+      <option value="nome-desc">Nome (Z-A)</option>
+      <option value="preco-asc">Preço (Menor para maior)</option>
+      <option value="preco-desc">Preço (Maior para menor)</option>
+    </select>
+  </div>
+
+  <div class="container" id="produtos-container"></div>
+
+  <div id="cart-modal">
+    <h3>Carrinho</h3>
+    <div id="cart-items"></div>
+    <button id="finalizar-btn" onclick="abrirFormulario()">Finalizar Pedido</button>
+    <button class="limpar-carrinho-btn" onclick="limparCarrinho()">Limpar Carrinho</button>
+    <button class="continuar-comprando-btn" onclick="fecharCarrinho()">Continuar Comprando</button>
+
+
+  </div>
+
+  <div id="formulario-entrega">
+    <h3>Informações de Entrega</h3>
+    <input type="text" id="nome" placeholder="Nome completo" required />
+    <input type="text" id="endereco" placeholder="Endereço" required />
+    <input type="text" id="bairro" placeholder="Bairro" required />
+    <input type="text" id="referencia" placeholder="Ponto de referência" />
+    <select id="pagamento">
+      <option value="">Forma de pagamento:</option>
+      <option value="Dinheiro">Dinheiro</option>
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+    </select>
+    <textarea id="observacoes" placeholder="Observações (ex: entregar no portão, troco para R$100, etc)"
+      rows="3"></textarea>
+    <button onclick="enviarPedidoWhatsApp()">Enviar Pedido</button>
+    <button onclick="fecharFormulario()" class="fechar-formulario">Voltar</button>
+  </div>
+
+  <!-- Modal Produto -->
+  <div id="produto-modal">
+    <img src="" alt="Imagem do produto" />
+    <h2></h2>
+    <p></p>
+    <button class="fechar-modal" onclick="fecharModalProduto()">Fechar</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Junior Pet - Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    let produtos = [];
+let carrinho = [];
+let bairros = [];
+
+async function carregarProdutos() {
+  try {
+    const response = await fetch('produtos.json');
+    produtos = await response.json();
+    filtrarProdutos();
+  } catch (error) {
+    console.error('Erro ao carregar produtos:', error);
+  }
+}
+
+async function carregarBairros() {
+  try {
+    const response = await fetch('bairros.json');
+    bairros = await response.json();
+    preencherBairros();
+  } catch (error) {
+    console.error('Erro ao carregar bairros:', error);
+  }
+}
+
+function preencherBairros() {
+  const bairroSelect = document.getElementById("bairro");
+  bairroSelect.innerHTML = '<option value="">Selecione</option>';
+
+  bairros.forEach(b => {
+    const option = document.createElement("option");
+    option.value = b.nome;
+    option.dataset.valor = b.valor;
+    option.textContent = `${b.nome} - R$ ${b.valor.toFixed(2)}`;
+    bairroSelect.appendChild(option);
+  });
+}
+
+function renderizarProdutos(lista) {
+  const container = document.getElementById('produtos-container');
+  container.innerHTML = '';
+  lista.forEach((p, i) => {
+    const imgPath = p.imagem ? `img/mini/${p.imagem}` : `https://via.placeholder.com/200x150?text=${encodeURIComponent(p.nome)}`;
+    const el = document.createElement('div');
+    el.className = 'product';
+    el.innerHTML = `
+      <img src='${imgPath}' alt="${p.nome}" />
+      <h4>${p.nome}</h4>
+      <p>R$ ${p.preco.toFixed(2)}</p>
+      <button onclick="abrirModalProduto(${i})">Ver detalhes</button>
+      <button onclick="adicionarCarrinho(${i})">Adicionar</button>
+    `;
+    container.appendChild(el);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  carregarBairros();
+
+  const bairroSelect = document.getElementById("bairro");
+  const valorEntregaSpan = document.getElementById("valor-entrega");
+
+  bairroSelect.addEventListener("change", function () {
+    const valor = parseFloat(this.selectedOptions[0]?.dataset.valor || 0);
+    if (valor > 0) {
+      valorEntregaSpan.textContent = `Valor entrega: R$ ${valor.toFixed(2)}`;
+    } else {
+      valorEntregaSpan.textContent = "Valor entrega: -";
+    }
+    atualizarCarrinho();
+  });
+});
+
+function filtrarProdutos() {
+  const categoria = document.getElementById('categoriaSelect').value.toLowerCase();
+  const busca = document.getElementById('buscaInput').value.toLowerCase();
+  const ordenacao = document.getElementById('ordenacaoSelect').value;
+
+  let filtrados = produtos.filter(p => {
+    return (
+      (categoria === '' || p.categoria.toLowerCase() === categoria) &&
+      (p.nome.toLowerCase().includes(busca) || p.descricao.toLowerCase().includes(busca))
+    );
+  });
+
+  if (ordenacao === 'nome-asc') {
+    filtrados.sort((a, b) => a.nome.localeCompare(b.nome));
+  } else if (ordenacao === 'nome-desc') {
+    filtrados.sort((a, b) => b.nome.localeCompare(a.nome));
+  } else if (ordenacao === 'preco-asc') {
+    filtrados.sort((a, b) => a.preco - b.preco);
+  } else if (ordenacao === 'preco-desc') {
+    filtrados.sort((a, b) => b.preco - a.preco);
+  }
+
+  renderizarProdutos(filtrados);
+}
+
+// Carousel
+const track = document.getElementById('carousel-track');
+const slides = track.children;
+const totalSlides = slides.length;
+const indicatorsContainer = document.getElementById('carousel-indicators');
+
+let index = 0;
+let interval;
+
+for (let i = 0; i < totalSlides; i++) {
+  const dot = document.createElement('button');
+  dot.addEventListener('click', () => {
+    index = i;
+    updateCarousel();
+    resetInterval();
+  });
+  indicatorsContainer.appendChild(dot);
+}
+
+const dots = indicatorsContainer.children;
+dots[0].classList.add('active');
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${index * 100}%)`;
+  Array.from(dots).forEach(dot => dot.classList.remove('active'));
+  dots[index].classList.add('active');
+}
+
+function moveCarousel() {
+  index = (index + 1) % totalSlides;
+  updateCarousel();
+}
+
+function resetInterval() {
+  clearInterval(interval);
+  interval = setInterval(moveCarousel, 3000);
+}
+
+resetInterval();
+
+// Carrinho
+function adicionarCarrinho(index) {
+  const produto = produtos[index];
+  const itemNoCarrinho = carrinho.find(item => item.produto.nome === produto.nome);
+  if (itemNoCarrinho) {
+    itemNoCarrinho.quantidade++;
+  } else {
+    carrinho.push({ produto, quantidade: 1 });
+  }
+  atualizarCarrinho();
+  alert(`${produto.nome} adicionado ao carrinho!`);
+}
+
+function atualizarCarrinho() {
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const bairroSelect = document.getElementById("bairro");
+
+  cartItems.innerHTML = '';
+  let subtotal = 0;
+
+  carrinho.forEach((item, index) => {
+    subtotal += item.produto.preco * item.quantidade;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <span>${item.produto.nome} (x${item.quantidade}) - R$ ${(item.produto.preco * item.quantidade).toFixed(2)}</span>
+      <button onclick="removerItem(${index})">X</button>
+    `;
+    cartItems.appendChild(div);
+  });
+
+  const valorEntrega = parseFloat(bairroSelect.selectedOptions[0]?.dataset.valor || 0);
+  const totalFinal = subtotal + valorEntrega;
+  cartTotal.textContent = totalFinal.toFixed(2);
+
+  if (carrinho.length === 0) {
+    cartItems.innerHTML = '<p>Carrinho vazio.</p>';
+  }
+}
+
+function removerItem(index) {
+  carrinho.splice(index, 1);
+  atualizarCarrinho();
+}
+
+function abrirCarrinho() {
+  document.getElementById('cart-modal').style.display = 'block';
+}
+function fecharCarrinho() {
+  document.getElementById('cart-modal').style.display = 'none';
+}
+
+function limparCarrinho() {
+  if (confirm('Deseja realmente limpar o carrinho?')) {
+    carrinho = [];
+    atualizarCarrinho();
+    fecharCarrinho();
+  }
+}
+
+function abrirFormulario() {
+  fecharCarrinho();
+  document.getElementById('formulario-entrega').style.display = 'block';
+}
+function fecharFormulario() {
+  document.getElementById('formulario-entrega').style.display = 'none';
+}
+
+function enviarPedidoWhatsApp() {
+  const nome = document.getElementById('nome').value.trim();
+  const endereco = document.getElementById('endereco').value.trim();
+  const bairro = document.getElementById('bairro').value.trim();
+  const referencia = document.getElementById('referencia').value.trim();
+  const pagamento = document.getElementById('pagamento').value;
+  const observacoes = document.getElementById('observacoes').value;
+
+  if (!nome || !endereco || !bairro || !pagamento) {
+    alert('Por favor, preencha todos os campos obrigatórios.');
+    return;
+  }
+
+  if (carrinho.length === 0) {
+    alert('Seu carrinho está vazio.');
+    return;
+  }
+
+  const valorEntrega = bairros.find(b => b.nome === bairro)?.valor || 0;
+
+  let mensagem = `Olá, quero fazer o pedido:\n\n`;
+  carrinho.forEach(item => {
+    mensagem += `- ${item.produto.nome} (x${item.quantidade}) - R$ ${(item.produto.preco * item.quantidade).toFixed(2)}\n`;
+  });
+
+  let total = carrinho.reduce((acc, item) => acc + item.produto.preco * item.quantidade, 0) + valorEntrega;
+  mensagem += `\nValor entrega: R$ ${valorEntrega.toFixed(2)}`;
+  mensagem += `\nTotal: R$ ${total.toFixed(2)}\n\n`;
+  mensagem += `Nome: ${nome}\nEndereço: ${endereco}\nBairro: ${bairro}\nPonto de referência: ${referencia}\nForma de Pagamento: ${pagamento}\nObservações: ${observacoes}`;
+
+  const urlWhatsapp = `https://wa.me/5522997407901?text=${encodeURIComponent(mensagem)}`;
+  window.open(urlWhatsapp, '_blank');
+
+  fecharFormulario();
+  carrinho = [];
+  atualizarCarrinho();
+}
+
+// Modal Produto
+function abrirModalProduto(index) {
+  const produto = produtos[index];
+  const modal = document.getElementById('produto-modal');
+  modal.querySelector('img').src = produto.imagem ? `img/${produto.imagem}` : `https://via.placeholder.com/400x300?text=${encodeURIComponent(produto.nome)}`;
+  modal.querySelector('img').alt = produto.nome;
+  modal.querySelector('h2').textContent = produto.nome;
+  modal.querySelector('p').textContent = produto.descricao;
+  modal.style.display = 'block';
+}
+function fecharModalProduto() {
+  document.getElementById('produto-modal').style.display = 'none';
+}
+
+window.onload = () => {
+  carregarProdutos();
+  carregarBairros();
+};
+
+  </script>
+</body>
+
+</html>

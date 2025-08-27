@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contato | Junior Pet</title>
+ <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png" />
+<style>
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding-top: 110px; /* espaço para header com logo + nav */
+}
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: linear-gradient(to bottom, #FFD700, #000);
+  padding: 10px 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #FFD700;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 215, 0, 0.3);
+}
+
+main {
+  padding: 6rem 1rem 2rem 1rem;
+}
+
+h1 {
+  color: #000;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+button.send {
+  background-color: #FFD700;
+  color: #000;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+button.send:hover {
+  background-color: #e6c200;
+}
+
+iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+  margin-top: 3rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #000;
+  color: #FFD700;
+  margin-top: 3rem;
+}
+
+/* Nova seção de endereço */
+.endereco {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.endereco h2 {
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.endereco p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  nav {
+    gap: 15px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  main {
+    padding: 5rem 1rem 1rem 1rem;
+  }
+
+  iframe {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav a {
+    font-size: 0.9rem;
+    padding: 5px;
+  }
+
+  .logo {
+    height: 45px;
+  }
+
+  form, .endereco {
+    padding: 1rem;
+  }
+
+  iframe {
+    height: 200px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="img/jr_logo.png" alt="Logo Junior Pet" class="logo" />
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="index.html">Produtos</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+  
+</header>
+
+  <main>
+    <h1>Fale Conosco</h1>
+    <form id="contatoForm">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Seu nome" required />
+
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" placeholder="(XX) XXXXX-XXXX"/>
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" placeholder="seuemail@exemplo.com"/>
+
+      <label for="mensagem">Mensagem:</label>
+      <textarea id="mensagem" rows="4" placeholder="Digite sua mensagem ou dúvida aqui..." required></textarea>
+
+      <button type="button" class="send" onclick="enviarWhatsApp()">Enviar via WhatsApp</button>
+    </form>
+
+    <section class="endereco">
+    <h2>📍 Nosso Endereço</h2>
+    <p>Rua: Santo Antonio - Nº 231</p>
+    <p>Campos dos Goytacazes - RJ</p>
+    <p>CEP: 28080-525</p>
+    <p>📞 Telefone: (22) 997407901</p>
+    <p>📧 Email: jrdias32@gmail.com</p>
+  </section>
+
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.050498085199!2d-41.32554432480313!3d-21.73956789720102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbdd4fe76f00f13%3A0x8d4f3b47a83ee5e3!2schurrasquinho%20de%20Dario!5e0!3m2!1spt-BR!2sbr!4v1755269246495!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</main>
+
+
+  <footer>
+    &copy; 2025 Junior Pet. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function enviarWhatsApp() {
+      const nome = document.getElementById("nome").value;
+      const telefone = document.getElementById("telefone").value;
+      const email = document.getElementById("email").value;
+      const mensagem = document.getElementById("mensagem").value;
+
+      const texto = `📬 Novo contato do site Nosso Pet%0A%0A` +
+                    `👤 Nome: ${nome}%0A` +
+                    `📞 Telefone: ${telefone}%0A` +
+                    `✉️ Email: ${email}%0A` +
+                    `💬 Mensagem: ${mensagem}`;
+
+      const url = `https://wa.me/5522997407901?text=${texto}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
