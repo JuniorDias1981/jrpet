@@ -1,9 +1,0 @@
-[
-  { "nome": "Ração Golden 15kg", "preco": 150, "categoria": "Ração", "descricao": "Ração premium para cães adultos.", "imagem": "racao-golden-carne.png" },
-  { "nome": "Ração Whiskas 3kg", "preco": 65, "categoria": "Ração", "descricao": "Para gatos adultos com taurina.", "imagem": "whiskas.jpg" },
-  { "nome": "Vermífugo Canino", "preco": 35, "categoria": "Saúde", "descricao": "Combate vermes e parasitas.", "imagem": "vermifugo.jpg" },
-  { "nome": "Coleira Antipulgas", "preco": 50, "categoria": "Saúde", "descricao": "Proteção por até 8 meses.", "imagem": "coleira.jpg" },
-  { "nome": "Brinquedo de Borracha", "preco": 25, "categoria": "Brinquedos", "descricao": "Resistente e divertido.", "imagem": "brinquedo.jpg" },
-  { "nome": "Caminha para Pet", "preco": 120, "categoria": "Acessórios", "descricao": "Confortável e lavável.", "imagem": "caminha.jpg" },
-  { "nome": "Comedouro Inox", "preco": 30, "categoria": "Acessórios", "descricao": "Durável e higiênico.", "imagem": "comedouro.jpg" }
-]
