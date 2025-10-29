@@ -1,0 +1,9 @@
+[
+  { "nome": "Ração Golden 15kg", "preco": 174.90, "categoria": "Ração", "descricao": "Ração premium para cães adultos.", "imagem": "racao-golden-carne.png" },
+  { "nome": "Ração Quatree supreme gato frango com batata doce 1kg", "preco": 23.50, "categoria": "Ração", "descricao": "Para gatos adultos com batata doce, sem trangênicos.", "imagem": "supremegatofrango.png" },
+  { "nome": "Vermífugo Canino, Caixa com 4 unidades", "preco": 7.5, "categoria": "Saúde", "descricao": "Combate vermes e parasitas.", "imagem": "vermifugo.png" },
+  { "nome": "Coleira Antipulgas", "preco": 175.90, "categoria": "Saúde", "descricao": "Proteção por até 8 meses.", "imagem": "coleira.png" },
+  { "nome": "Brinquedo galinha de Borracha", "preco": 10.00, "categoria": "Brinquedos", "descricao": "Resistente e divertido.", "imagem": "galinha.png" },
+  { "nome": "Caminha para Pet", "preco": 120, "categoria": "Acessórios", "descricao": "Confortável e lavável.", "imagem": "caminha.png" },
+  { "nome": "Comedouro Alumínio", "preco": 30, "categoria": "Acessórios", "descricao": "Comedouro Em Alumínio Pesado.", "imagem": "comedouro.png" }
+]

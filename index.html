@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2 Irmãos</title>
+  <meta name="description"
+    content="Compre produtos para pets com qualidade e promoções imperdíveis. Rações, acessórios, brinquedos e mais para cuidar do seu melhor amigo." />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="top-row">
+      <img src="img/logo.png" alt="Logo Junior Pet" class="logo" loading="eager" />
+      <button class="cart-button" onclick="abrirCarrinho()" aria-label="Abrir carrinho">
+        🛒 R$ <span id="cart-total">0,00</span>
+        <span class="cart-badge" id="cart-count" aria-label="Itens no carrinho">0</span>
+      </button>
+    </div>
+
+    <nav aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="index.html">Produtos</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+
+    <!-- Seletor de bairros no header -->
+    <div class="delivery-selection" aria-label="Seleção de bairro para entrega">
+      <label for="bairro-select">Bairro para entrega:</label>
+      <select id="bairro-select" aria-label="Selecionar bairro para entrega">
+        <option value="">Selecione</option>
+        <!-- opções serão carregadas do bairros.json -->
+      </select>
+      <span id="valor-entrega-header">Valor entrega: -</span>
+    </div>
+  </header>
+
+  <div class="carousel" aria-label="Promoções">
+    <div class="carousel-track" id="carousel-track">
+      <img src="/img/promo1.png" alt="Promoção ração e acessórios" loading="lazy" />
+      <img src="/img/promo2.png" alt="Desconto em brinquedos" loading="lazy" />
+      <img src="/img/promo1.png" alt="Ofertas da semana" loading="lazy" />
+      <img src="/img/promo2.png" alt="Leve mais por menos" loading="lazy" />
+      <img src="/img/promo1.png" alt="Combo especial" loading="lazy" />
+    </div>
+    <div class="carousel-indicators" id="carousel-indicators" aria-hidden="true"></div>
+  </div>
+
+   <div class="filters">
+    <select id="categoriaSelect" onchange="filtrarProdutos()" aria-label="Filtrar por categoria">
+      <option value="">Todas as categorias</option>
+      <option value="Ração">Ração</option>
+      <option value="Saúde">Saúde</option>
+      <option value="Acessórios">Acessórios</option>
+      <option value="Brinquedos">Brinquedos</option>
+    </select>
+    <input type="text" id="buscaInput" placeholder="Buscar produto..." aria-label="Buscar produto" />
+    <select id="ordenacaoSelect" onchange="filtrarProdutos()" aria-label="Ordenar produtos">
+      <option value="">Ordenar por</option>
+      <option value="nome-asc">Nome (A-Z)</option>
+      <option value="nome-desc">Nome (Z-A)</option>
+      <option value="preco-asc">Preço (Menor para maior)</option>
+      <option value="preco-desc">Preço (Maior para menor)</option>
+    </select>
+  </div>
+
+  <div class="container" id="produtos-container" aria-live="polite"></div>
+
+  <div id="cart-modal" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
+    <h3>Carrinho</h3>
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="totals">
+        <div class="total-line"><span>Subtotal</span><strong id="subtotal-span">R$ 0,00</strong></div>
+        <div class="total-line"><span>Entrega</span><strong id="entrega-span">R$ 0,00</strong></div>
+        <div class="total-line"><span>Total</span><strong id="total-span">R$ 0,00</strong></div>
+      </div>
+      <button id="finalizar-btn" onclick="abrirFormulario()">Finalizar Pedido</button>
+      <button class="limpar-carrinho-btn" onclick="limparCarrinho()">Limpar Carrinho</button>
+      <button class="continuar-comprando-btn" onclick="fecharCarrinho()">Continuar Comprando</button>
+    </div>
+  </div>
+
+  <div id="formulario-entrega" role="dialog" aria-modal="true" aria-label="Informações de entrega">
+    <h3>Informações de Entrega</h3>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" placeholder="Nome completo" required />
+    <label for="nome">Endereço::</label>
+    <input type="text" id="endereco" placeholder="Endereço" required />
+
+    <!-- Agora o bairro no formulário também é um select, sincronizado com o do header -->
+    <label for="nome">Bairro:</label>
+    <select id="bairro-form-select" required aria-label="Selecionar bairro no formulário"></select>
+    <label for="nome">Ponto de referencia:</label>
+    <input type="text" id="referencia" placeholder="Ponto de referência (opcional)" />
+    <label for="nome">Forma de pagamento:</label>
+    <select id="pagamento" required>
+      <option value="">Forma de pagamento:</option>
+      <option value="Dinheiro">Dinheiro</option>
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+    </select>
+    <label for="nome">Observações:</label>
+    <textarea id="observacoes" placeholder="Observações (ex: entregar no portão, troco para R$100, etc)"
+      rows="3"></textarea>
+    <button onclick="enviarPedidoWhatsApp()">Enviar Pedido</button>
+    <button onclick="fecharFormulario()" class="fechar-formulario">Voltar</button>
+  </div>
+
+  <!-- Modal Produto -->
+  <div id="produto-modal" role="dialog" aria-modal="true" aria-label="Detalhes do produto">
+    <img src="" alt="Imagem do produto" />
+    <h2></h2>
+    <p></p>
+    <button class="fechar-modal" onclick="fecharModalProduto()">Fechar</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 JR Pet - Todos os direitos reservados.</p>
+    <p>Desenvolvido por <a href="mailto:junior.dias@email.com" class="dev-link">Junior Dias</a></p>
+  </footer>
+
+
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

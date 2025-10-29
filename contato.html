@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contato | 2 Irmãos</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png" />
+  <link rel="stylesheet" href="css/contato.css" />
+</head>
+
+<body>
+  <header>
+    <img src="img/logo.png" alt="Logo Junior Pet" class="logo" />
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="index.html">Produtos</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+
+  </header>
+
+  <main>
+    <h1>Fale Conosco</h1>
+    <form id="contatoForm">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Seu nome" required />
+
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" placeholder="(XX) XXXXX-XXXX" />
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" placeholder="seuemail@exemplo.com" />
+
+      <label for="mensagem">Mensagem:</label>
+      <textarea id="mensagem" rows="4" placeholder="Digite sua mensagem ou dúvida aqui..." required></textarea>
+
+      <button type="button" class="send" onclick="enviarWhatsApp()">Enviar via WhatsApp</button>
+    </form>
+
+    <section class="endereco">
+      <h2>📍 Nosso Endereço</h2>
+      <p>Rua: Santo Antonio - 231</p>
+      <p>Campos dos Goytacazes - RJ</p>
+      <p>CEP: 28080-525</p>
+      <p>📞 Telefone: (22) 997407901</p>
+      <p>📧 Email: jrdias32@gmail.com</p>
+    </section>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d926.5123984796815!2d-41.32360463046303!3d-21.739602953034435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbdd4fe7090a4e1%3A0xc2e2e677957a88bd!2sR.%20Santo%20Ant%C3%B4nio%2C%20231%20-%20Parque%20Santo%20Antonio%2C%20Campos%20dos%20Goytacazes%20-%20RJ%2C%2028080-525!5e0!3m2!1spt-BR!2sbr!4v1761750120633!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </main>
+
+
+ <footer>
+    <p>&copy; 2025 JR Pet - Todos os direitos reservados.</p>
+    <p>Desenvolvido por <a href="mailto:junior.dias@email.com" class="dev-link">Junior Dias</a></p>
+  </footer>
+
+
+  <script src="js/contato.js"></script>
+</body>
+
+</html>

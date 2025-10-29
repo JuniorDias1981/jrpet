@@ -1,0 +1,234 @@
+
+    :root {
+      --gold: #ffd700;
+      --black: #000;
+      --bg: #fff;
+      --muted: #f9f9f9;
+      --border: #ddd;
+      --danger: #e74c3c;
+      --success: #27ae60;
+      --radius: 10px;
+      --shadow: 0 6px 24px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      padding-top: 110px; /* espaço para header fixo */
+      color: #111;
+    }
+
+    header {
+      position: fixed; inset: 0 0 auto 0; /* top:0; left:0; right:0 */
+      background: linear-gradient(to bottom, var(--gold), var(--black));
+      padding: 10px 16px;
+      z-index: 10000;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+
+   /* ===== Centralizar logo e manter carrinho à direita (robusto) ===== */
+.top-row{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* esq | logo | dir */
+  align-items: center;
+  gap: 12px;
+}
+
+/* cria um "espaçador" na 1ª coluna sem precisar alterar o HTML */
+.top-row::before{
+  content: "";
+}
+
+/* garante a logo sempre bem no centro (coluna 2) */
+.top-row .logo{
+  grid-column: 2;
+  justify-self: center;
+}
+
+/* carrinho vai para a 3ª coluna (direita) */
+.top-row .cart-button{
+  grid-column: 3;
+  justify-self: end;
+}
+
+/* opcional: em telas bem pequenas, reduz um pouco o tamanho da logo */
+@media (max-width: 480px){
+  .top-row .logo{ height: 48px; }
+}
+
+
+    .logo {
+  height: 80px;
+  filter: drop-shadow(0 0 4px #fff)
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+    
+
+    nav { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    nav a { color: var(--gold); font-weight: 700; text-decoration: none; font-size: 1rem; padding: 6px 10px; border-radius: 6px; transition: background-color .3s ease; }
+    nav a:hover, nav a:focus { background-color: rgba(255,215,0,.25); outline: none; }
+
+    /* Carrinho */
+    .cart-button { position: relative; background: var(--gold); color: var(--black); border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; height: 40px; box-shadow: var(--shadow); }
+    .cart-button:focus { outline: 2px solid #fff; outline-offset: 2px; }
+    .cart-badge { position: absolute; top: -8px; right: -8px; background: var(--danger); color: #fff; border-radius: 999px; padding: 2px 7px; font-size: 12px; font-weight: 800; min-width: 22px; text-align: center; }
+
+    /* Seletor de bairros (header) */
+    .delivery-selection { display: flex; align-items: center; gap: 8px; margin-left: 8px; flex-wrap: wrap; }
+    .delivery-selection label { color: var(--gold); font-weight: 800; font-size: 1.05rem; text-shadow: 1px 1px 2px rgba(0,0,0,.35); }
+    .delivery-selection select, .delivery-selection output { padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border); background: #fff; }
+    #valor-entrega-header { color: var(--gold); font-weight: 800; font-size: 1.05rem; text-shadow: 1px 1px 2px rgba(0,0,0,.35); }
+
+    /* Carrossel */
+    .carousel { position: relative; width: min(100%, 600px); height: 300px; overflow: hidden; margin: 6px auto 0; border-radius: var(--radius); box-shadow: var(--shadow); background: #000; }
+    .carousel-track { display: flex; width: 100%; height: 100%; transition: transform .8s ease-in-out; }
+    .carousel-track img { width: 100%; height: 320px; object-fit: cover; flex-shrink: 0; }
+    .carousel-indicators { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+    .carousel-indicators button { width: 12px; height: 12px; background-color: rgba(255,255,255,.6); border: none; border-radius: 50%; cursor: pointer; transition: background-color .3s; }
+    .carousel-indicators button.active { background-color: var(--gold); }
+    .carousel {
+  margin-top: 48px; /* ou outro valor que ajuste bem */
+}
+
+    /* Seção Sobre Nós */
+#sobre-nos {
+  background-color: #f9fafb; /* tom neutro e leve */
+  padding: 3rem 1rem;
+}
+
+#sobre-nos h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+#sobre-nos p {
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+#sobre-nos img {
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-height: 350px;
+  object-fit: cover;
+}
+
+#sobre-nos a {
+  display: inline-block;
+  background-color: #facc15; /* amarelo destacado */
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#sobre-nos a:hover {
+  background-color: #eab308;
+  transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  #sobre-nos {
+    text-align: center;
+  }
+  #sobre-nos img {
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+  }
+}
+
+
+    /* Filtros */
+    .filters { display: flex; justify-content: center; gap: 10px; padding: 12px; flex-wrap: wrap; background: var(--muted); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .filters input, .filters select { padding: 10px; border: 1px solid var(--border); border-radius: 8px; min-width: 180px; }
+
+    /* Grid produtos */
+    .container { padding: 28px 16px; max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 20px; }
+    .product { border: 1px solid var(--border); border-radius: 12px; text-align: center; padding: 12px; background: #fff; cursor: pointer; box-shadow: 0 1px 0 rgba(0,0,0,.02); transition: transform .12s ease; }
+    .product:hover { transform: translateY(-2px); }
+    .product img { width: 100%; height: auto; max-height: 160px; object-fit: contain; background-color: var(--muted); border-radius: 8px; }
+    .product h4 { margin: 10px 0 6px; font-size: 1rem; }
+    .product .price { font-weight: 800; margin: 0 0 8px; }
+    .product button { background: var(--gold); border: none; padding: 10px; margin-top: 8px; cursor: pointer; border-radius: 8px; font-weight: 800; }
+
+    .product-description { font-size: .9rem; color: #333; margin-top: 8px; text-align: left; }
+
+    /* Modal carrinho */
+    #cart-modal { display: none; position: fixed; top: 84px; right: 20px; width: 340px; background: #fff; border: 2px solid var(--gold); border-radius: 12px; box-shadow: 0 0 18px rgba(0,0,0,.35); padding: 14px; z-index: 11000; }
+    #cart-modal h3 { margin: 0 0 10px; }
+    .cart-item { border-bottom: 1px solid var(--border); padding: 8px 0; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
+    .cart-item .name { font-size: .95rem; }
+    .qty-controls { display: inline-flex; align-items: center; gap: 6px; background: var(--muted); padding: 4px 6px; border-radius: 999px; }
+    .qty-controls button { border: none; background: #fff; border: 1px solid var(--border); width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: 800; }
+    .cart-item .remove { background: var(--danger); color: #fff; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+    .cart-footer { display: grid; gap: 8px; margin-top: 10px; }
+    .totals { display: grid; gap: 4px; font-size: .95rem; }
+    .total-line { display: flex; justify-content: space-between; }
+
+    #finalizar-btn { background: var(--danger); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    #cart-modal button.limpar-carrinho-btn { background: var(--gold); color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    #cart-modal button.continuar-comprando-btn { background: var(--success); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+
+    footer { background: var(--black); color: var(--gold); text-align: center; padding: 16px; margin-top: 40px; }
+    footer .dev-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+footer .dev-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+    /* Form de entrega */
+    #formulario-entrega { display: none; position: fixed; top: 100px; left: 50%; transform: translateX(-50%); background: #fff; padding: 18px; border: 2px solid var(--gold); border-radius: 12px; z-index: 12000; width: 90%; max-width: 420px; box-shadow: var(--shadow); }
+    #formulario-entrega h3 { margin: 0 0 10px; }
+    #formulario-entrega input, #formulario-entrega select, #formulario-entrega textarea { width: 100%; margin: 8px 0; padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+    #formulario-entrega button { background: var(--gold); border: none; padding: 10px; width: 100%; margin-top: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    #formulario-entrega .fechar-formulario { background: #ccc; color: #000; }
+
+    /* Modal Produto */
+    #produto-modal { display: none; position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); background: #fff; border: 2px solid var(--gold); border-radius: 12px; max-width: 640px; width: 92%; max-height: 90vh; overflow-y: auto; z-index: 13000; box-shadow: 0 0 15px rgba(0,0,0,.4); padding: 18px; }
+    #produto-modal img { width: 100%; max-height: 360px; object-fit: contain; border-radius: 8px; }
+    #produto-modal h2 { margin: 12px 0 8px; }
+    #produto-modal p { font-size: 1rem; color: #333; }
+    #produto-modal button.fechar-modal { margin-top: 12px; background: #ff4d4d; border: none; padding: 10px 12px; border-radius: 8px; color: #fff; cursor: pointer; font-weight: 800; }
+
+    /* Toasts */
+    .toast-container { position: fixed; top: 14px; right: 14px; display: grid; gap: 8px; z-index: 14000; }
+    .toast { background: #111; color: #fff; padding: 10px 12px; border-radius: 10px; box-shadow: var(--shadow); opacity: 0; transform: translateY(-6px); animation: slideIn .25s forwards; }
+    @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .container { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    }
+    @media (max-width: 660px) {
+      header { padding: 8px 10px; }
+      .logo { height: 44px; }
+      body { padding-top: 96px; }
+      .carousel { height: 260px; }
+      .carousel-track img { height: 260px; }
+      #cart-modal { right: 10px; left: 10px; width: auto; }
+    }
+
+    /* Preferência de reduzir movimento: desliga autoplay do carrossel */
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track { transition: none; }
+    }
